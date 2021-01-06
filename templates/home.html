@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+{{ template "head" .}}
+
+<body>
+    {{ template "navbar" .}}
+    {{ .Body }}
+    <div class="posts">
+        <h3 class="title">Posts</h3>
+        <ul class="list">
+            {{ range .Posts }}
+            <li class="post">
+                <div class="title"><a href="/posts/{{ .ID }}">{{ .Title }}</a></div>
+                <div class="date">{{ .Date }}</div>
+            </li>
+            {{ end }}
+        </ul>
+    </div>
+</body>
+
+</html>

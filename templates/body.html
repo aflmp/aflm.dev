@@ -1,0 +1,11 @@
+{{ define "body" }}
+
+<body>
+    {{ template "navbar" .}}
+    <div class="article">
+        <h3 class="title">{{ .Title }}</h3>
+        <h5 class="date">{{ .Date }}</h5>
+    </div>
+    {{ .Body }}
+</body>
+{{ end }}
