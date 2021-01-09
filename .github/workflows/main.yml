@@ -1,8 +1,8 @@
 name: build-push-deploy
-env:
-  PROJECT_ID: ${{ env.GCP_PROJECT}}
-  SERVICE: aflm-blog
-  REGION: us-central1
+  env:
+    PROJECT_ID: ${{ env.GCP_PROJECT}}
+    SERVICE: aflm-blog
+    REGION: us-central1
 
 on:
   push:
