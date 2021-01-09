@@ -10,4 +10,5 @@ COPY posts /blog/posts
 COPY templates /blog/templates
 COPY ./posts.json /blog/posts.json
 COPY --from=builder /blog/aflm.dev /blog
-CMD ["/blog/aflm.dev"]
+WORKDIR /blog
+CMD ["./aflm.dev"]
