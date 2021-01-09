@@ -1,5 +1,7 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
+metadata:
+  name: aflm-blog
 spec:
   template:
     metadata:
@@ -7,5 +9,6 @@ spec:
         autoscaling.knative.dev/maxScale: '1' 
     spec:
       containers:
+      - image: IMAGE
       - env:
         - PORT: 443
