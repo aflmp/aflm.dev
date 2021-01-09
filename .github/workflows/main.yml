@@ -6,12 +6,13 @@ on:
 
   workflow_dispatch:
 
+env:
+  PROJECT_ID: ${{ env.GCP_PROJECT}}
+  SERVICE: aflm-blog
+  REGION: us-central1
+
 jobs:
   deploy:
-    env:
-      PROJECT_ID: ${{ env.GCP_PROJECT}}
-      SERVICE: aflm-blog
-      REGION: us-central1
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
