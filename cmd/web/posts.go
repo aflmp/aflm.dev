@@ -26,9 +26,12 @@ type Post struct {
 }
 
 func postIDfromTitle(title string) string {
-	re := regexp.MustCompile("[^a-zA-Z0-9-_ ]")
-	id := re.ReplaceAllString(title, "")
-	return strings.ReplaceAll(strings.ToLower(id), " ", "-")
+	validURLChars := regexp.MustCompile("[^a-zA-Z0-9-_ ]")
+	dashes := regexp.MustCompile("-[-]*")
+
+	id := validURLChars.ReplaceAllString(title, "")
+	id = strings.ReplaceAll(strings.ToLower(id), " ", "-")
+	return dashes.ReplaceAllString(id, "-")
 }
 
 func postIDfromPath(path string) string {
