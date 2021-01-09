@@ -1,0 +1,11 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: '1' 
+    spec:
+      containers:
+      - env:
+        - PORT: 443

@@ -33,21 +33,8 @@ jobs:
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v0.2.0
         with:
-          # service: ${{ github.repository }}
-          # image: gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{  github.sha }}
+          service: ${{ github.repository }}
+          image: gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{  github.sha }}
           region: ${{ env.REGION }}
-          metadata: |
-            apiVersion: serving.knative.dev/v1
-            kind: Service
-            metadata:
-              name: ${{ github.repository }}
-            spec:
-              template:
-                metadata:
-                  annotations:
-                    autoscaling.knative.dev/maxScale: '1' 
-                spec:
-                  containers:
-                  - image: gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{  github.sha }}
-                  - env:
-                    - PORT: 443
+          metadata: ./build/service.yaml
+            
