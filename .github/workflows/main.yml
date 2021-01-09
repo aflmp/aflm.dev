@@ -10,7 +10,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      SERVICE: aflm-blog
       REGION: us-central1
     steps:
       - uses: actions/checkout@v2
@@ -27,13 +26,29 @@ jobs:
       
       - name: build, push container
         run: |
-          docker image build -f ./build/Dockerfile -t gcr.io/${{ secrets.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }} .
-          docker push gcr.io/${{ secrets.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
+          docker image build -f ./build/Dockerfile -t gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{ github.sha }} .
+          docker push gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{ github.sha }}
       
       - name: deploy to Cloud Run
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v0.2.0
         with:
-          service: ${{ env.SERVICE }}
-          image: gcr.io/${{ secrets.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
+          # service: ${{ github.repository }}
+          # image: gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{  github.sha }}
           region: ${{ env.REGION }}
+          metdata: 
+            apiVersion: serving.knative.dev/v1
+            kind: Service
+            metadata:
+              name: ${{ github.repository }}
+            spec:
+              template:
+                metadata:
+                  annotations:
+                    autoscaling.knative.dev/maxScale: '1' 
+                spec:
+                  containers:
+                  - image: gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{  github.sha }}
+                  - env:
+                    - PORT: 443
+
