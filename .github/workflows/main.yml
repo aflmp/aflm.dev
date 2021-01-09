@@ -31,7 +31,7 @@ jobs:
         run: |
           gcloud run deploy aflmdev \
             --image gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{  github.sha }} \
-            --region us-central1
+            --region us-central1 \
             --platform managed \
             --max-instances 1 \
             --port 443 \
