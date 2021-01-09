@@ -22,13 +22,14 @@ jobs:
       - name: authorize docker push
         run: gcloud auth configure-docker
         env:
+          PROJECT_ID: ${{ secrets.PROJECT_ID  }}
           SERVICE: aflm-blog
           REGION: us-central1
       
       - name: build, push container
         run: |
-          docker image build -f ./build/Dockerfile -t gcr.io/${{ secrets.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }} .
-          docker push gcr.io/${{ secrets.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
+          docker image build -f ./build/Dockerfile -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }} .
+          docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
       
       - name: deploy to Cloud Run
         id: deploy
