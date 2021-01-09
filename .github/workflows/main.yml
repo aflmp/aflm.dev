@@ -36,7 +36,7 @@ jobs:
           # service: ${{ github.repository }}
           # image: gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{  github.sha }}
           region: ${{ env.REGION }}
-          metdata: 
+          metdata: |
             apiVersion: serving.knative.dev/v1
             kind: Service
             metadata:
@@ -51,4 +51,3 @@ jobs:
                   - image: gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{  github.sha }}
                   - env:
                     - PORT: 443
-
