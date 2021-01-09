@@ -37,5 +37,5 @@ jobs:
           image: gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{  github.sha }}
           region: ${{ env.REGION }}
           env_vars:
-            - PORT: 443
+            - PORT=443
             
