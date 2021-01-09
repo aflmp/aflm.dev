@@ -9,8 +9,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      REGION: us-central1
     steps:
       - uses: actions/checkout@v2
       
@@ -30,11 +28,20 @@ jobs:
           docker push gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{ github.sha }}
       
       - name: deploy to Cloud Run
-        id: deploy
-        uses: google-github-actions/deploy-cloudrun@v0.2.0
-        with:
-          service: aflm-blog
-          image: gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{  github.sha }}
-          region: ${{ env.REGION }}
-          env_vars: PORT=443
+        run: |
+          gcloud run deploy aflmdev \
+            --image gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{  github.sha }} \
+            --region us-central1
+            --platform managed \
+            --max-instances 1 \
+            --port 443 \
+            --allow-unauthenticated
+            
+        # id: deploy
+        # uses: google-github-actions/deploy-cloudrun@v0.2.0
+        # with:
+        #   service: aflm-blog
+        #   image: gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{  github.sha }}
+        #   region: ${{ env.REGION }}
+        #   env_vars: PORT=443
             
