@@ -27,7 +27,7 @@ jobs:
       
       - name: build, push container
         run: |
-          docker image build -f ./build/Dockerfile -t gcr.io/${{ secrets.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
+          docker image build -f ./build/Dockerfile -t gcr.io/${{ secrets.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }} .
           docker push gcr.io/${{ secrets.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
       
       - name: deploy to Cloud Run
