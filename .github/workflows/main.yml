@@ -36,5 +36,6 @@ jobs:
           service: ${{ github.repository }}
           image: gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{  github.sha }}
           region: ${{ env.REGION }}
-          metadata: ./build/service.yaml
+          env_vars:
+            - PORT: 443
             
