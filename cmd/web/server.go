@@ -3,7 +3,7 @@ package web
 import (
 	"log"
 	"net/http"
-	"os"
+	"syscall"
 	"text/template"
 )
 
@@ -14,7 +14,13 @@ var (
 )
 
 func init() {
-	port = os.Getenv("PORT")
+	var found bool
+
+	port, found = syscall.Getenv("PORT")
+	if !found {
+		port = "3000"
+	}
+
 	existingPosts = loadExistingPosts()
 	files := loadTemplates("templates")
 	templates = template.Must(template.ParseFiles(files...))
