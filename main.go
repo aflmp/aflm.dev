@@ -1,9 +1,36 @@
 package main
 
 import (
-	web "github.com/aflmp/aflm.dev/cmd/web"
+	"embed"
+	"log"
+	"syscall"
+
+	server "github.com/aflmp/aflm.dev/server"
 )
 
+//go:embed posts.json
+var postList []byte
+
+//go:embed assets/*
+var assets embed.FS
+
+//go:embed blog/*
+var blog embed.FS
+
 func main() {
-	web.Main()
+	port, found := syscall.Getenv("PORT")
+	if !found {
+		port = "3000"
+	}
+
+	config := server.Config{
+		Port:     port,
+		Blog:     blog,
+		PostList: postList,
+		Assets:   assets,
+	}
+
+	srv := server.New(config)
+	err := srv.Run()
+	log.Fatal(err)
 }

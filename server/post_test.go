@@ -1,4 +1,4 @@
-package web
+package server
 
 import "testing"
 
@@ -13,7 +13,7 @@ func TestCreatePostID(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		if got := postIDfromTitle(test.in); got != test.want {
+		if got := idFromTitle(test.in); got != test.want {
 			t.Errorf("got: %v; want: %v", got, test.want)
 		}
 	}
