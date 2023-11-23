@@ -1,13 +1,13 @@
 package web
 
 import (
-	"io/ioutil"
 	"log"
+	"os"
 	"strings"
 )
 
 func readFromFile(filename string) []byte {
-	data, err := ioutil.ReadFile(filename)
+	data, err := os.ReadFile(filename)
 	if err != nil {
 		log.Fatalf("failed to read file %v: %v", filename, err)
 	}

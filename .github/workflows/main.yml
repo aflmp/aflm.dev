@@ -10,10 +10,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       
       - name: setup cloud SDK
-        uses: google-github-actions/setup-gcloud@v0.2.0
+        uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ secrets.PROJECT_ID }}
           service_account_key: ${{ secrets.SA_KEY }}
@@ -24,7 +24,7 @@ jobs:
       
       - name: build, push container
         run: |
-          docker image build -f ./build/Dockerfile -t gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{ github.sha }} .
+          docker image build -f Dockerfile -t gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{ github.sha }} .
           docker push gcr.io/${{ secrets.PROJECT_ID }}/${{ github.repository }}:${{ github.sha }}
       
       - name: deploy to Cloud Run

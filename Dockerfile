@@ -1,7 +1,7 @@
 FROM golang:1.21 as builder
 COPY . /blog/
 WORKDIR /blog
-RUN go build -ldflags="-s -w"
+RUN CGO_ENABLED=0 go build -ldflags="-s -w"
 
 FROM gcr.io/distroless/base
 COPY assets /blog/assets
