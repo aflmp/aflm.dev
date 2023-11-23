@@ -1,14 +1,14 @@
 package web
 
 import (
-	"io/ioutil"
 	"log"
+	"os"
 	"path/filepath"
 	"strings"
 )
 
 func loadTemplates(templateDir string) []string {
-	files, err := ioutil.ReadDir(templateDir)
+	files, err := os.ReadDir(templateDir)
 	if err != nil {
 		log.Fatalf("failed to load templates from %v: %v", templateDir, err)
 	}
