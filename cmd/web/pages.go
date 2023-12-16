@@ -31,7 +31,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	page := Page{Title: "aflm.dev", ID: "home", Posts: existingPosts}
+	page := Page{Title: "alamp.dev", ID: "home", Posts: existingPosts}
 	page.renderTemplate(w, "home.html")
 }
 
