@@ -1,4 +1,4 @@
-FROM golang:1.21.5 as builder
+FROM golang:1.24 AS builder
 COPY . /blog/
 WORKDIR /blog
 RUN CGO_ENABLED=0 go build -ldflags="-s -w"
