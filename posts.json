@@ -3,9 +3,10 @@
     {
       "title": "Simple blog - How I built it",
       "date": "09 Jan 2021"
-  },
-  {
+    },
+    {
       "title": "Hello world, first post",
       "date": "05 Jan 2021"
-  }]
+    }
+  ]
 }
